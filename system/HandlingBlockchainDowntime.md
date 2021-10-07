@@ -17,7 +17,7 @@ However, this is unlikely to be a sufficient step to solve the startup issues as
 From memory, some further lookups that might be optional are:
 
 1) On session start, provider checks the hermes fee via blockchain. This can easily be cached for reasonably long times if it already is not.
-1) On session start, provider checks the hermes status via blockchain. This call should probably be remade in a way where a failure to call blockchain is not treated as critical.
+2) On session start, provider checks the hermes status via blockchain. This call should probably be remade in a way where a failure to call blockchain is not treated as critical.
 
 All of them can likely be done via Hermes + Transactor instead of blockchain as long as those two services are alive. 
 
