@@ -20,39 +20,19 @@ Bottom line is - bool representation of a complex state does not convey the mean
 In my opinion a much better approach is to have human-readable states. MA knows what is actually going on and so should the proposal API consumers.  
 First we would introduce a new field in the contract. Let’s call that field: **monitoring_state**
 
-### States (only)
-
-This solution would only deal with proposal monitoring states.
-
-#### How It Works
-
-Introduce a new field into Quality Oracle (QO) contract for _/sessions_ endpoint called: **monitoring_state**. This field will contain a more human-readable representation of the current **monitoring_failed** field.
-
-|**monitoring_state**| Description | Can transition to |
-| :--- | :---: | ---:|
-| INITIAL_CHECK_PENDING| Proposal is brand new, waiting for first check by MA | UNHEALTHY, HEALTHY|
-| UNHEALTHY| Proposal has connection issues (for last 24h proposal has been less than 50% reachable by MA) | HEALTHY, UNSTABLE|
-| HEALTHY| Proposal is healthy (for last 24h it has been >75% reachable by MA) | UNHEALTHY, UNSTABLE|
-| UNSTABLE| Proposal is unstable (for last 24h it has been reachable 50%-75% of the time in MA checks) | HEALTHY, UNHEALTHY|
-
-This state machine is not final but rather serves as an idea of how much more we would be able to communicate by moving to documented states.
-
 ### States (with description)
 
-This solution builds on top of _"States (only)"_ and adds detailed description to response.
-
 #### How It Works
 
-In addition, while the “States (only)” approach gives a lot of information it could give it some more. Instead of having just **monitoring_state** and documented Description we could have the description of the state in the contract. So if we add a complimentary field to a contract that I will call **monitoring_state_description** we then would be able to pass it to the consumers as a human-readable verbose explanation.
+Introduce a new fields into Quality Oracle (QO) contract for _/sessions_ endpoint called: **monitoring_state** and **monitoring_state_description**. 
+These fields will contain a more human-readable representation of the current **monitoring_failed** field.
 
-|**monitoring_state**| **monitoring_state_description** | Can transition to |
-| :--- | :---: | ---:|
-| INITIAL_CHECK_PENDING| Proposal is brand new, waiting for first check by MA | UNHEALTHY, HEALTHY|
-| UNHEALTHY| Proposal has connection issues (for last 24h proposal has been less than 50% reachable by MA) | HEALTHY, UNSTABLE|
-| HEALTHY| Proposal is healthy (for last 24h it has been >75% reachable by MA) | UNHEALTHY, UNSTABLE|
-| UNSTABLE| Proposal is unstable (for last 24h it has been reachable 50%-75% of the time in MA checks) | HEALTHY, UNHEALTHY|
-
-Potential drawback of “_States (with description)_” might be additional data. While including extra text averaging at say 100 Bytes with 3160 proposals results in ~316Kb (will use the Kilo of 1000) for 1M proposals that would be ~100Mb.
+|**monitoring_state**| **monitoring_state_description** | Can transition to | Show in Proposal List? |
+| :---: | :---: | :---:| :---: |
+| PENDING| Proposal is brand new, waiting for first check by MA | UNHEALTHY, HEALTHY| NO |
+| UNHEALTHY| [Failed to send data, Failed to connect] | HEALTHY, UNSTABLE| NO |
+| HEALTHY| "Anything about how AWESOME this node runner is" | UNHEALTHY, UNSTABLE| YES |
+| UNSTABLE| [Last 2-3 attempts failed in a row, High RTT] | HEALTHY, UNHEALTHY| YES |
 
 ## Advantages
 - Allows scaling the state machine if we wish to cover an additional case.
