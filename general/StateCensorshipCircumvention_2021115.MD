@@ -26,7 +26,7 @@ The ultimate task is to find a solution for meta-data obfuscation satisfying all
 
 ### Academic sources
 
-Actual work doesn't claims novelty and for this reason author skips detailed comparison against prior art to outline own contribution.
+Actual work doesn't claim novelty and for this reason the author skips detailed comparison against prior art to outline own contribution.
 
 Internet censorship and anti-censorship have been [discussed by a great number of authors in literature](https://www.princeton.edu/~chiangm/anticensorship.pdf) over past decades. Some of these studies have valuable classification of methods used by state censors and had heavy influence on definition of problem for this work. However, no complete solutions were found which address concerning issues: some works are outdated by now, other successfully achieve advantage over censor in individual communications, but do not even consider challenges of circumvention service operation at scale, inherently not covering problems of meta-information exposure.
 
