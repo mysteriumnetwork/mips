@@ -198,3 +198,5 @@ There are two potential node level changes. First, node should stop calling fee 
 - This way allows us to calculate tx fees or even swap MYST into MATIC (via QuickSwap or UniswapV3) during settlement transaction —> no need to calculate and invalidate fees on transactor level, no risk of loss because of MYST rate etc.
 - Done in spirit of web3 (gives decentralisation and possibility of control for node runners).
 - It prevents transactor's funds loss due to tx front running which is happening after Mysterium mainnet release.
+- In such way we still maintain possibility for users to pay for gas by themself, without using meta transactions.
+- Using EIP-2117 give possibility to call any function in our smart contracts via meta transactions, not only currently supported `settlePromise` or `registerIdentity`.
