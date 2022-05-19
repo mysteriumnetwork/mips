@@ -200,3 +200,22 @@ There are two potential node level changes. First, node should stop calling fee 
 - It prevents transactor's funds loss due to tx front running which is happening after Mysterium mainnet release.
 - In such way we still maintain possibility for users to pay for gas by themself, without using meta transactions.
 - Using EIP-2117 give possibility to call any function in our smart contracts via meta transactions, not only currently supported `settlePromise` or `registerIdentity`.
+
+## Proposed implementation Roadmap
+
+  1. Implement minimal _Forwarder_ smart contract with whitelisted relayers and make needed changes into `Registry.sol`, `ChannelImplementation.sol` and `HermesImplementation.sol`. We could have support for a few _Trusted Forwarders_ so in the future we could implement more advanced one and add it as additional choice.
+
+  2. Deploy smart contracts and set new channel and hermes implementations. Register new hermes.
+
+  **NOTE:** At this step we would also need to deploy new _Registry_, however thanks to `paretRegistry` feature we will not need to reregister older consumers and providers, old hermesses will also continue working. The only bad thing is that older nodes will be not able to exchange promises sent via new hermes. So nodes should be migrated first and consumers after e.g. 80% fleet is already upgraded.
+
+  We could also skip deploying new _Registry_ at this stage and use new meta transactions only for promise settlement
+
+  3. Implement meta tranactions via _Forwarder_ support on _Transactor_ level, expose them as `api/v3`. Now we can start testing them on real live blockchain.
+
+  4. Add support for transactor's api v3 on node level. No need for config changes, also we don't need any UI changes for that. Simply creation of metaTxSignature and extending fields required by updated API.
+
+  5. Release new note. __Woohoo!__ We have implemented minimal implementation of this MIP.
+
+
+If this approach is good then it may be worth to spent some time on additional updates (e.g. adding auto swap during each transactionm deploying new registry or adding Intura ITX as fallback option).
