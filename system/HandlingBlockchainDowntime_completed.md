@@ -1,4 +1,4 @@
-# Handling blockchain downtime
+# Handling blockchain downtime (Completed)
 
 2021-10-06 was a hard day for Mysterium while running in testnet3. The polygon mumbai blockchain maintainers decided to do a release to validators, which in turn broke the whole mumbai testnet. Since we were running on mumbai at that time, none of our services worked. Nodes failed to start, the running nodes could not establish/maintain sessions as Hermes would encounter issues when checking the channel status for both providers and consumers on chain.
 
