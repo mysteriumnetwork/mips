@@ -5,4 +5,5 @@ Dedicated place to suggest and discuss proposals relevant to Mysterium Network p
 ## Table of Contents
 
 - [Node Proposals](node/CONTENTS.MD)
-- [System wide proposals Proposals](system/CONTENTS.MD)
+- [System wide Proposals](system/CONTENTS.MD)
+- [Payment protocol Proposals](payments/CONTENTS.MD)
